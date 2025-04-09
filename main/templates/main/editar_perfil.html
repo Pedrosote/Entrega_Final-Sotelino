@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+Eitar perfil
+{% endblock title %}
+
+
+
+{% block content_title %}
+Editar perfil
+{% endblock content_title %}
+
+
+
+{% block content %}
+<form method = "post" enctype = "multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+        {{avatar_form.as_table}}
+    </table>
+    <button typr = "submit">guarar cambios</button>
+</form>
+{% endblock content %}

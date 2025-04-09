@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+perfil
+{% endblock title %}
+
+
+
+{% block content_title %}
+perfil
+{% endblock content_title %}
+
+
+
+{% block content %}
+<p>nombre de usuario: {{user.username}}</p>
+<p>nombre: {{user.first_name}}</p>
+<p>apellido: {{user.last_name}}</p>
+<p>Email: {{user.email}}</p>
+<a href="{% url "main:editar_perfil" %}">Editar Perfil</a>
+{% endblock content %}

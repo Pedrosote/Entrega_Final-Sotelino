@@ -1,0 +1,36 @@
+{% extends "main/base.html" %}
+
+{% block title %}Inicio{% endblock title %}
+
+{% block content_title %}
+<h1 style="
+    text-align: center;
+    font-size: 48px;
+    font-weight: 700;
+    margin-top: 40px;
+    color: #2c3e50;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+">
+    Blog de Python
+</h1>
+{% endblock content_title %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; height: 200px;">
+    <a href="{% url 'blog:postlist' %}" style="
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px 32px;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 12px;
+        text-decoration: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    " onmouseover="this.style.backgroundColor='#45a049'" onmouseout="this.style.backgroundColor='#4CAF50'">
+        Ingresar
+    </a>
+</div>
+{% endblock content %}
