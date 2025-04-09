@@ -1,0 +1,65 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+publicar
+{% endblock title %}
+
+{% block content_title %}
+{% if form.instance.pk %}
+edicion de una publicacion
+{% else %}
+<h1 style="
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    margin-top: 40px;
+    color: #2c3e50;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+">
+    creacion de publicacion
+</h1>
+{% endif %}
+
+{% endblock content_title %}
+
+{% block content %}
+
+    <form method="post" style="background: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        {% csrf_token %}
+        <table style="width: 100%; font-size: 16px;">
+            {{ form.as_table }}
+        </table>
+        <div style="margin-top: 20px; text-align: center;">
+            <input type="submit" value="Enviar" style="
+                background-color: #2ecc71;
+                color: white;
+                padding: 12px 28px;
+                font-size: 16px;
+                font-weight: bold;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#27ae60'" onmouseout="this.style.backgroundColor='#2ecc71'">
+        </div>
+        <div style="text-align: center; margin-top: 15px;">
+            <a href="{% url 'blog:postlist' %}" style="
+                display: inline-block;
+                background-color: #e74c3c;
+                color: white;
+                padding: 10px 25px;
+                font-size: 16px;
+                font-weight: bold;
+                border-radius: 10px;
+                text-decoration: none;
+                transition: background-color 0.3s ease;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            " onmouseover="this.style.backgroundColor='#c0392b'" onmouseout="this.style.backgroundColor='#e74c3c'">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

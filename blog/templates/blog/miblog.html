@@ -1,0 +1,55 @@
+{% extends "main/base.html" %}
+
+{% block title %}Publicaciones{% endblock title %}
+
+{% block content_title %}
+<h2 class="text-center my-4">Lista de Publicaciones</h2>
+{% endblock content_title %}
+
+{% block content %}
+<div class="container d-flex justify-content-center">
+    <div class="col-md-8">
+        <form action="{% url 'blog:postlist' %}" method="get" class="mb-4">
+            <input type="text" name="busqueda" placeholder="Buscar..." class="form-control mb-3">
+        </form>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in posts %}
+                    <tr>
+                        <td>{{ post.titulo }}</td>
+                        <td>{{ post.autor }}</td>
+                        <td>{{ post.fecha }}</td>
+                        <td>
+                            {% if post.estado == "B" %}
+                                Borrador
+                            {% else %}
+                                <strong>Publicado</strong>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url "blog:post_detail" post.id %}" class="btn btn-sm btn-info">detalle</a>
+                            <a href="{% url "blog:post_update" post.id %}" class="btn btn-sm btn-warning">cambiar</a>
+                            <a href="{% url "blog:post_delete" post.id %}" class="btn btn-sm btn-danger">eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="text-center mt-4">
+                <a href="{% url "blog:post_create" %}" class="btn btn-primary">Crear publicación</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
