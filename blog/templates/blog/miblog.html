@@ -38,8 +38,10 @@
                         </td>
                         <td>
                             <a href="{% url "blog:post_detail" post.id %}" class="btn btn-sm btn-info">detalle</a>
+                            {% if user == post.autor %}
                             <a href="{% url "blog:post_update" post.id %}" class="btn btn-sm btn-warning">cambiar</a>
-                            <a href="{% url "blog:post_delete" post.id %}" class="btn btn-sm btn-danger">eliminar</a>
+                            <a href="{% url 'blog:post_delete' post.id %}" class="btn btn-danger">eliminar</a>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
