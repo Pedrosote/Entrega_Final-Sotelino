@@ -1,0 +1,23 @@
+{% extends "main/base.html" %}
+
+{% block content_title %}Enviar mensaje{% endblock content_title %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-sm border-success">
+    <div class="card-header bg-success text-white">
+      Redactar un nuevo mensaje
+    </div>
+    <div class="card-body bg-light">
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          {{ form.as_p }}
+        </div>
+        <button class="btn btn-success" type="submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+  <a href="{% url 'mensajes:lista_mensajes' %}" class="btn btn-outline-success mt-3">Ver mensajes recibidos</a>
+</div>
+{% endblock content %}
