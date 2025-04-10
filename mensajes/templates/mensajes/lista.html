@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+
+{% block content_title %}Mensajes recibidos{% endblock content_title %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card border-success shadow-sm">
+    <div class="card-header bg-success text-white">
+      Bandeja de entrada
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for mensaje in mensajes %}
+        <li class="list-group-item {% if not mensaje.leido %}fw-bold{% endif %}">
+          <div class="mb-1 text-success"><strong>De:</strong> {{ mensaje.emisor.username }}</div>
+          <div class="mb-1 text-muted"><strong>Fecha:</strong> {{ mensaje.fecha_envio|date:"d/m/Y H:i" }}</div>
+          <div>{{ mensaje.contenido }}</div>
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">No tenés mensajes.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock content %}

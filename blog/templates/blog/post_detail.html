@@ -1,22 +1,40 @@
 {% extends "main/base.html" %}
 
 {% block title %}
-detalle
+Detalle del Post
 {% endblock title %}
 
 {% block content_title %}
-vista en detalle de una publicacion
+Vista en detalle de una publicación
 {% endblock content_title %}
 
 {% block content %}
-<ul>
-    <li>Titulo: {{object.titulo}}</li>
-    <li>autor: {{object.autor}}</li>
-    <li>contenido: {{object.texto}}</li>
-    <li>fecha: {{object.fecha}}</li>
-    <li>estado: {{object.estado}}</li>
-</ul>
-<div>
-    <a href="{% url "blog:postlist" %}">volver</a>
+<div class="container my-4">
+    <div class="card shadow-lg p-4">
+        <h2 class="mb-4 text-center">{{ object.titulo }}</h2>
+        
+        {% if object.imagen %}
+        <div class="text-center mb-4">
+            <img src="{{ object.imagen.url }}" class="img-fluid rounded border border-3 border-secondary" style="max-width: 100%; height: auto; max-height: 500px;" alt="Imagen del post">
+        </div>
+        {% endif %}
+
+        <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item"><strong>Autor:</strong> {{ object.autor }}</li>
+            <li class="list-group-item"><strong>Contenido:</strong> {{ object.texto }}</li>
+            <li class="list-group-item"><strong>Fecha:</strong> {{ object.fecha }}</li>
+            <li class="list-group-item"><strong>Estado:</strong>
+                {% if object.estado == "B" %}
+                    <span class="badge bg-secondary">Borrador</span>
+                {% else %}
+                    <span class="badge bg-success">Publicado</span>
+                {% endif %}
+            </li>
+        </ul>
+
+        <div class="text-center">
+            <a href="{% url "blog:postlist" %}" class="btn btn-outline-primary">← Volver al listado</a>
+        </div>
+    </div>
 </div>
 {% endblock content %}

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from .models import Post
 from django.urls import reverse_lazy
 from .forms import PostForm
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def miblog(request):
     busqueda = request.GET.get("busqueda", None)
@@ -20,10 +20,24 @@ class PostListView(ListView):
     
     def get_queryset(self):
         queryset = super().get_queryset()
+        user = self.request.user
         busqueda = self.request.GET.get("busqueda", None)
+
+        if user.is_authenticated:
+            queryset = queryset.filter(
+                estado='P'
+            ) | queryset.filter(
+                estado='B',
+                autor=user
+            )
+        else:
+            queryset = queryset.filter(estado='Publicado')
+
         if busqueda:
             queryset = queryset.filter(titulo__icontains=busqueda)
-        return queryset
+
+        return queryset.distinct()
+
 
 def post_create(request):
     if request.method == "POST":
@@ -40,7 +54,7 @@ def post_create(request):
         form = PostForm()
     return render(request, "blog/post_create.html", context = {"form": form})
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     success_url = reverse_lazy("blog:postlist")
@@ -54,15 +68,15 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
     success_url = reverse_lazy("blog:postlist")
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     success_url = reverse_lazy("blog:postlist")

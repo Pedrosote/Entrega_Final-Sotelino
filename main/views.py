@@ -19,13 +19,13 @@ def editar_perfil(request):
     if request.method == "POST":
         form = EditUserForm(request.POST, instance=request.user)
 
-        # Verificar si el usuario tiene un avatar
+        
         try:
             avatar = request.user.avatar
         except Avatar.DoesNotExist:
             avatar = None
 
-        # Crear el formulario de avatar según si el usuario tiene uno o no
+        
         if avatar:
             avatar_form = AvatarForm(request.POST, request.FILES, instance=avatar)
         else:
@@ -34,7 +34,7 @@ def editar_perfil(request):
         if form.is_valid() and avatar_form.is_valid():
             form.save()
             avatar_instance = avatar_form.save(commit=False)
-            avatar_instance.user = request.user  # Asignar el usuario actual al avatar
+            avatar_instance.user = request.user  
             avatar_instance.save()
             return redirect("main:perfil")
     else:
